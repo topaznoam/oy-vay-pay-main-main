@@ -6,14 +6,16 @@ import {
   getExpenses,
   deleteExpense,
   updateExpense,
-} from "../api/expenses"; // Ensure you import updateExpense
+} from "../api/expenses";
 import { toast } from "react-toastify";
 import { CURRENCY_SYMBOLS } from "../constants/index";
+import { SlidersHorizontal } from "lucide-react";
 
 export const Expenses = () => {
   const [isPending, setIsPending] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [editSubmit, setEditSubmit] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
   const { user } = useAuth();
 
   const titleRef = useRef(null);
@@ -22,6 +24,9 @@ export const Expenses = () => {
   const tagRef = useRef(null);
   const currencyRef = useRef(null);
 
+  const filteredExpenses = expenses.filter((expense) =>
+    expense.title.toLowerCase().includes(inputSearch.toLowerCase())
+  );
   const resetFields = () => {
     titleRef.current.value = "";
     descriptionRef.current.value = "";
@@ -188,53 +193,68 @@ export const Expenses = () => {
           Add Expense
         </button>
       </form>
-      <table className="expenses-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Tag</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((expense) => (
-            <tr key={expense._id}>
-              <td>{expense.title}</td>
-              <td>{expense.description}</td>
-              <td>
-                {expense.amount}
-                {" " + CURRENCY_SYMBOLS[expense.currency]}
-              </td>
-              <td>{expense.tag}</td>
-              <td>
-                <div className="action-buttons">
-                  <button
-                    onClick={
-                      editSubmit
-                        ? () => saveExpanseSubmit(expense._id)
-                        : () => editExpanseSubmit(expense._id)
-                    }
-                    className={editSubmit ? "save-button" : "edit-button"}
-                    disabled={isPending && editSubmit}
-                  >
-                    {editSubmit ? "Save" : "Edit"}
-                  </button>
-
-                  <button
-                    onClick={() => deleteExpanse(expense._id)}
-                    className="delete-button"
-                    disabled={isPending}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </td>
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="search..."
+          value={inputSearch}
+          onChange={({ target }) => setInputSearch(target.value)}
+        ></input>
+        <button>
+          <SlidersHorizontal />
+        </button>
+      </div>
+      {filteredExpenses.length ? (
+        <table className="expenses-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Tag</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredExpenses.map((expense) => (
+              <tr key={expense._id}>
+                <td>{expense.title}</td>
+                <td>{expense.description}</td>
+                <td>
+                  {expense.amount}
+                  {" " + CURRENCY_SYMBOLS[expense.currency]}
+                </td>
+                <td>{expense.tag}</td>
+                <td>
+                  <div className="action-buttons">
+                    <button
+                      onClick={
+                        editSubmit
+                          ? () => saveExpanseSubmit(expense._id)
+                          : () => editExpanseSubmit(expense._id)
+                      }
+                      className={editSubmit ? "save-button" : "edit-button"}
+                      disabled={isPending && editSubmit}
+                    >
+                      {editSubmit ? "Save" : "Edit"}
+                    </button>
+
+                    <button
+                      onClick={() => deleteExpanse(expense._id)}
+                      className="delete-button"
+                      disabled={isPending}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="not-found">{`"${inputSearch}" not found`}</p>
+      )}
     </main>
   );
 };

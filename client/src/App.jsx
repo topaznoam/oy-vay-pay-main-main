@@ -6,15 +6,15 @@ import { Dashboard } from "./components/Dashboard";
 import { Navbar } from "./components/Navbar";
 import { useAuth } from "./components/AuthProvider";
 import { Expenses } from "./components/Expenses";
+import { Loading } from "./components/Loading";
+import "./App.css";
 
 function App() {
   const { user, isPending, isLoggedIn } = useAuth();
-  
 
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <Loading />;
 
   console.log(user);
-
 
   return (
     <>

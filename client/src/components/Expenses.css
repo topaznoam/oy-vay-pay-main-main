@@ -115,3 +115,30 @@ input[type="number"] {
   background-color: #ef4444;
    color: white;
 }
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.filters input {
+  width: 30%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+}
+.filters button {
+  width: auto;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.not-found {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  color: #ef4444;
+}
