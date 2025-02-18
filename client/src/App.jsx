@@ -14,8 +14,6 @@ function App() {
 
   if (isPending) return <Loading />;
 
-  console.log(user);
-
   return (
     <>
       {isLoggedIn ? <Navbar /> : null}

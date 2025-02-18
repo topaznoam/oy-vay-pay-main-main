@@ -1,5 +1,5 @@
 import React from "react";
-import "./Loading.css";
+import "../styles/Loading.css";
 import { LoaderCircle } from "lucide-react";
 
 export const Loading = () => {

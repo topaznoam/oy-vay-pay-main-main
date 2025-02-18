@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../components/AuthProvider";
 import { CURRENCY_SYMBOLS } from "../constants";
 import { getTotalExpenses } from "../api/expenses";
-import "./Dashboard.css";
+import "../styles/Dashboard.css";
 
 export const Dashboard = () => {
   const { user } = useAuth();

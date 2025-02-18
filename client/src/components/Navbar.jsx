@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
-import "./Navbar.css";
+import "../styles/Navbar.css";
 import { logOut } from "../api/auth";
 
 export const Navbar = () => {
@@ -9,7 +9,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">
-        <img src="/images/logo.webp" alt="logo" width={30} height={50}/>
+        <img src="/images/logo.webp" alt="logo" width={30} height={50} />
       </Link>
 
       <div className={`navbar-links ${isOpen ? "open" : ""}`}>

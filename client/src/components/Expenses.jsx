@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import "./Expenses.css";
+import "../styles/Expenses.css";
 import { useAuth } from "./AuthProvider";
 import {
   createExpenses,
@@ -9,13 +9,14 @@ import {
 } from "../api/expenses";
 import { toast } from "react-toastify";
 import { CURRENCY_SYMBOLS } from "../constants/index";
-import { SlidersHorizontal } from "lucide-react";
+import Filters from "./Filters";
 
 export const Expenses = () => {
   const [isPending, setIsPending] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [editSubmit, setEditSubmit] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState(null);
   const { user } = useAuth();
 
   const titleRef = useRef(null);
@@ -193,17 +194,12 @@ export const Expenses = () => {
           Add Expense
         </button>
       </form>
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="search..."
-          value={inputSearch}
-          onChange={({ target }) => setInputSearch(target.value)}
-        ></input>
-        <button>
-          <SlidersHorizontal />
-        </button>
-      </div>
+      <Filters
+        inputSearch={inputSearch}
+        setInputSearch={setInputSearch}
+        selectedFilter={selectedFilter}
+        setSelectedFilter={setSelectedFilter}
+      />
       {filteredExpenses.length ? (
         <table className="expenses-table">
           <thead>
