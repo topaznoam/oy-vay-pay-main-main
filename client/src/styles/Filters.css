@@ -24,3 +24,23 @@
   font-size: 1.5rem;
   color: #ef4444;
 }
+.selected-filter {
+  background-color: #f0f0f0;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  display: inline-block;
+  align-items: center;
+}
+.filter-label {
+  color: #333;
+  text-decoration: none;
+  cursor: auto;
+}
+.clear-filter-icon {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  margin-bottom: -3px;
+}

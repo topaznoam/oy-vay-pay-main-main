@@ -3,6 +3,8 @@ import { useAuth } from "../components/AuthProvider";
 import { CURRENCY_SYMBOLS } from "../constants";
 import { getTotalExpenses } from "../api/expenses";
 import "../styles/Dashboard.css";
+import { LineChart } from "./charts/LineChart";
+import { BarChart } from "./charts/BarChart";
 
 export const Dashboard = () => {
   const { user } = useAuth();
@@ -46,6 +48,10 @@ export const Dashboard = () => {
           <h2>Balance</h2>
           <p>$200</p>
         </div>
+      </div>
+      <div className="charts">
+        <LineChart />
+        <BarChart />
       </div>
     </div>
   );

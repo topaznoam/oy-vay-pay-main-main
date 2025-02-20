@@ -32,6 +32,7 @@ const FilterModal = ({
             range
             min={MIN_BOUND}
             max={MAX_BOUND}
+            value={rangeValue}
             onChange={handleSliderChange}
             styles={{
               track: {

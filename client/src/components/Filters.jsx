@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Filters.css";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, Trash2 } from "lucide-react";
 import FilterModal from "./FilterModal";
 
 const Filters = ({
@@ -8,11 +8,15 @@ const Filters = ({
   setInputSearch,
   selectedFilter,
   setSelectedFilter,
+  MAX_BOUND,
 }) => {
   const MIN_BOUND = 0;
-  const MAX_BOUND = 1000;
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [rangeValue, setRangeValue] = useState([MIN_BOUND, MAX_BOUND]);
+
+  useEffect(() => {
+    setRangeValue([MIN_BOUND, MAX_BOUND]);
+  }, [MAX_BOUND]);
 
   const handleFilterSelect = (option) => {
     setSelectedFilter(option);
@@ -45,6 +49,14 @@ const Filters = ({
         MIN_BOUND={MIN_BOUND}
         MAX_BOUND={MAX_BOUND}
       />
+      {selectedFilter && (
+        <div className="selected-filter">
+          <span className="filter-label">
+            Filter: Min: {selectedFilter.min} - Max: {selectedFilter.max}
+          </span>
+          <Trash2 onClick={handleClearFilter} className="clear-filter-icon" />
+        </div>
+      )}
     </>
   );
 };

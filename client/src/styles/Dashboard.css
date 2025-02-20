@@ -47,6 +47,13 @@
   background-color: #e0f7fa;
   color: #00796b;
 }
+.charts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 80px;
+}
 
 @media (min-width: 768px) {
   .summary {
@@ -56,6 +63,10 @@
   .card {
     flex: 1;
     min-width: 30%;
+  }
+  .charts {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 

@@ -25,9 +25,19 @@ export const Expenses = () => {
   const tagRef = useRef(null);
   const currencyRef = useRef(null);
 
-  const filteredExpenses = expenses.filter((expense) =>
-    expense.title.toLowerCase().includes(inputSearch.toLowerCase())
-  );
+  const filteredExpenses = expenses.filter((expense) => {
+    const mathSearch = expense.title
+      .toLowerCase()
+      .includes(inputSearch.toLowerCase());
+    if (selectedFilter && selectedFilter.type === "amount") {
+      return (
+        mathSearch &&
+        expense.amount >= selectedFilter.min &&
+        expense.amount <= selectedFilter.max
+      );
+    }
+    return mathSearch;
+  });
   const resetFields = () => {
     titleRef.current.value = "";
     descriptionRef.current.value = "";
@@ -199,7 +209,13 @@ export const Expenses = () => {
         setInputSearch={setInputSearch}
         selectedFilter={selectedFilter}
         setSelectedFilter={setSelectedFilter}
+        MAX_BOUND={
+          expenses ? Math.max(...expenses.map((expense) => expense.amount)) : 0
+        }
       />
+      {console.log(
+        Math.max(...filteredExpenses.map((expense) => expense.amount))
+      )}
       {filteredExpenses.length ? (
         <table className="expenses-table">
           <thead>
@@ -248,8 +264,10 @@ export const Expenses = () => {
             ))}
           </tbody>
         </table>
+      ) : inputSearch ? (
+        <p className="not-found">{`"${inputSearch}" not found.`}</p>
       ) : (
-        <p className="not-found">{`"${inputSearch}" not found`}</p>
+        <p className="not-found">"no expanse found."</p>
       )}
     </main>
   );

@@ -101,12 +101,11 @@ export const AuthForm = () => {
         </form>
         <p>
           {isLogin ? "Don't have an account?" : "Already have an account?"}
-          <span onClick={() => setIsLogin(!isLogin)}>
+          <span className="auth-mode" onClick={() => setIsLogin(!isLogin)}>
             {isLogin ? " Sign Up" : " Login"}
           </span>
         </p>
       </div>
-        
     </div>
   );
 };
