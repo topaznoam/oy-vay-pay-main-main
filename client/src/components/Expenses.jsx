@@ -29,7 +29,8 @@ export const Expenses = () => {
     const mathSearch = expense.title
       .toLowerCase()
       .includes(inputSearch.toLowerCase());
-    if (selectedFilter && selectedFilter.type === "amount") {
+
+    if (selectedFilter && selectedFilter.Type === "amount") {
       return (
         mathSearch &&
         expense.amount >= selectedFilter.min &&
